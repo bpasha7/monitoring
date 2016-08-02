@@ -26,6 +26,10 @@ class Device extends Controller
 	{
 		$this->model->addDevice();
 	}
+	public function count()
+	{
+		$this->model->count();
+	}
 	public function groups()
 	{
 		$this->model->groups();

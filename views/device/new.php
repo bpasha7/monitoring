@@ -1,14 +1,6 @@
 <script>
 
     $(document).ready(function(){
-    	var timerId = setTimeout(function tick() {
-  $("#add").click();
-  timerId = setTimeout(tick, 2000);
-}, 2000);
-/*function test(){
-	$("#add").click();
-}*/
-//setTimeout( test, 1000);
             var URL = 'http://monitoring.dev/';
             var countProp=1;
             $('#groups').focus(function(){

@@ -28,6 +28,14 @@ class Device_Model extends Model
                     ));
         $sth->closeCursor();      
     }
+    public function Count()
+    {
+		$sth = $this->database->prepare("SELECT COUNT(DeviceId) FROM devices");
+        $sth->execute();
+        $cnt = $sth->fetch(PDO::FETCH_LAZY);
+        echo $cnt[0];
+        $sth->closeCursor();
+	}
     public function deleteDevice()
     {
     	$ip =  $_POST['ip'];

@@ -1,27 +1,61 @@
 <script>
     $(document).ready(function(){
             var URL = 'http://monitoring.dev/';
+            var deviceCount;
+            var deviceDemanded = 0;
+            var timerId;
             $.ajax({
+                    url: URL+'device/count',
+                    success: function(count){
+                    	deviceCount= count;
+                    }
+                });          
+                /*function test(){
+                	var limit = $("#limit").val();
+                	$('.map').fadeIn('200');
+                	for(var i = 1; i < deviceCount; i+=limit)
+                	$.ajax({
                     url: URL+'monitor/refresh',
+                    type: "POST",
+                    data: {from: i, to: i+limit},
                     success: function(html){
-                        $('.map').html(html);
-                        $('.map').fadeIn('200');
+                        $('.map').append(html);                        
                     }
                 });
-                function test(){
-					$('.map').append('<div class="device_refresh" ><img class="refresh" src="public/images/refresh.png" /><img class="printer" src="public/images/printer.png" /><label>test</label></div>');
-
+					/*$('.map').append('<div class="device_refresh" ><img class="refresh" src="public/images/refresh.png" /><img class="printer" src="public/images/printer.png" /><label>test</label></div>');
+				};*/
+				function demand(){
+					//==
+					var limit = $("#limit").val();
+					if(deviceDemanded >= deviceCount)
+						{
+							deviceDemanded = 0;
+							clearInterval(timerId);
+							return;
+						}
+					else
+						deviceDemanded += parseInt(limit);
+					$.ajax({
+                    url: URL+'monitor/refresh',
+                    type: "POST",
+                    async: false,
+                    data: {from: deviceDemanded-limit, cnt: limit},
+                    context: this              
+               		}).success(function(html){      
+                       $('.map').animate({
+                			opacity: 0.8
+                			},150, function(){
+                				$('.map').append(html);
+                				$('.map').css("opacity","1");
+                			});            
+                      });   
 				};
             $("#up").click(function(){
-            	
-            	var timerId = setTimeout(function tick() {
-  					test();
-  						timerId = setTimeout(tick, 2000);
-					}, 2000);
-            				});
-				
-				
-			
+            	var delay = $("#delay").val()*1000;
+            	timerId = setInterval(function() {
+  					demand();
+				}, delay);
+            });		
             $(".map").on('click','img.refresh', function(){
                     var device_id = $(this).attr('deviceid');
                     if (  $('#d'+device_id).hasClass('device_off') )
@@ -52,9 +86,10 @@
         <option>
             Filter
         </option>
-    </select> <input id="up" type="submit" value="UP"/>
-    <input id="limit" type="text" placeholder="Devices" value=""/>
-    <input id="timeer" type="text" placeholder="Time in sec." value=""/>
+    </select> <input id="up" type="submit" value="Refresh"/>
+    <input id="limit" type="text" placeholder="Devices limit(num)" value=""/>
+    <input id="delay" type="text" placeholder="Delay (sec)" value=""/>
+    <input id="timer" type="text" placeholder="Refreshing (sec)" value=""/>
 </div>
 
 

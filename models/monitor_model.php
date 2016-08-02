@@ -54,7 +54,7 @@ class Monitor_Model extends Model
 	}
     public function refresh()
     {
-		$sth = $this->database->prepare("SELECT * FROM Devices");
+		$sth = $this->database->prepare("SELECT * FROM Devices LIMIT ".$_POST['from'].", ".$_POST['cnt']);
         $sth->execute();
         error_reporting(0);
         while ($row = $sth->fetch(PDO::FETCH_LAZY))

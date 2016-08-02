@@ -6,16 +6,52 @@
     position: relative;
     margin: 2%;
 }
+input[type=text]
+{
+    margin: 5px;
+    background-color: #929191;
+    border: solid 2px #a70606;
+    color: white;
+    height: 28px;
+    padding-left: 3px;
+    width: 60px;
+    border-radius: 5px;
+}
+input[type=submit]
+{
+    background-color: #af0d0d;
+    text-align: center;
+    color: white;
+    height: 28px;
+    width: 60px;
+    border: solid 1px #3e3e3e;
+    border-radius: 5px;
+}
+input[type=text]:focus{
+	text-align: center;
+	transition: width 0.8s ease-in-out;
+	background:#d2d1cc;
+	color: black;
+	width: 30%; 
+	
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+input::-webkit-input-placeholder { color: white; }
 .map{
 	width: 96%;
-    height: auto;
+    height: 40% auto;
     background: #c0d4d4;
     position: relative;
     margin: 2%;
-    display: none;
+    /*display: none;*/
 }
 .device_refresh{
-	background: url(http://monitoring.dev/public/images/proc.gif) 50% 10% no-repeat; /* Добавляем фон */
+	background: url(http://monitoring.dev/public/images/proc.gif) 50% 10% no-repeat; 
     background-size: cover;
     display: inline-block;
     margin: 5px;
