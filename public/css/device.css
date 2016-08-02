@@ -1,0 +1,87 @@
+body{
+	/*background-color: rgba(147, 184, 245, 0.39);*/
+	
+}
+#target{
+	background-color: #f44336;
+    color: white;
+    width: 10%;
+    font-size: 14pt;
+}
+select{
+    margin: inherit;
+    font-size: 11pt;
+    width: 200px;
+    height: 21px;
+    border: 1px solid #ccc!important;
+}
+table{
+}
+td:first-child{
+	width: 90px;
+}
+td:last-child{
+	width: 90px;
+}
+td, th {
+    display: inline-block;
+}
+input{
+	border: 1px solid #ccc!important;
+	height: 4%;
+	font-size: 12pt;
+	color: #464444;
+	margin: inherit;
+	text-align: center;
+	margin: 0.3%;
+}
+#pname{
+	width: 20%; 
+	text-align: left;
+}
+#oid{
+	width: 40%;
+	text-align: left; 
+}
+#pname:focus{
+	text-align: center;
+	transition: width 0.4s ease-in-out;
+	width: 30%; 
+	
+}
+#oid:focus{
+	text-align: center;
+	transition: width 0.4s ease-in-out;
+	width: 50%; 
+}
+#pname:not(:focus){
+	transition: width 0.4s ease-in-out;
+	width: 20%; 
+}
+#oid:not(:focus){
+	transition: width 0.4s ease-in-out;
+	width: 30%; 
+}
+#create_device img{
+	vertical-align: middle;
+	cursor: pointer;
+	
+}
+#edit_device img{
+	vertical-align: middle;
+	cursor: pointer;
+	
+}
+/*SEARCH MENU STYLE*/
+.search{
+	vertical-align: middle;
+	cursor: pointer;
+}
+.search:hover{
+	transition: 0.4s ease-in-out;
+	transform: scale(1.2);
+}
+.search:not(:hover){
+	transition: 0.4s ease-in-out;
+	transform: scale(1);
+}

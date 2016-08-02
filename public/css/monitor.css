@@ -1,0 +1,130 @@
+.settings{
+	width: 96%;
+    height: 10%;
+    max-height: 70%;
+    background: #cfc9c5;
+    position: relative;
+    margin: 2%;
+}
+.map{
+	width: 96%;
+    height: auto;
+    background: #c0d4d4;
+    position: relative;
+    margin: 2%;
+    display: none;
+}
+.device_refresh{
+	background: url(http://monitoring.dev/public/images/proc.gif) 50% 10% no-repeat; /* Добавляем фон */
+    background-size: cover;
+    display: inline-block;
+    margin: 5px;
+    width: 100px;
+    height: 90px;
+	background-color:#ff0000;
+	border-radius: 7px;
+}
+.device_off{
+	display: inline-block;
+    margin: 5px;
+    width: 100px;
+    height: 90px;
+	background-color:#ff0000;
+	border-radius: 7px;
+}
+.device_on{
+	display: inline-block;
+    margin: 5px;
+    width: 100px;
+    height: 90px;	
+    border-radius: 7px;
+	background-color:#00ff00;
+}
+.device_off img{
+	position: relative;
+	right: 10px;
+    width: 70%;
+}
+.device_refresh img{
+	position: relative;
+	right: 10px;
+    width: 70%;
+    visibility: hidden;
+}
+.device_on img{
+	position: relative;
+	right: 10px;
+    width: 70%;
+}
+.device_on .refresh{
+	position: relative;
+    width: 20%;
+    top: -50px;
+    left: 2px;
+    cursor: pointer;
+}
+.device_off .refresh{
+	position: relative;
+    width: 20%;
+    top: -50px;
+    left: 2px;
+    cursor: pointer;
+}
+.device_refresh .refresh{
+	position: relative;
+    width: 20%;
+    top: -50px;
+    left: 2px;
+    cursor: pointer;
+}
+.device_off label{
+	position: relative;
+    display: block;
+    text-align: center;
+    color: white;
+}
+.device_refresh label{
+	position: relative;
+    display: block;
+    text-align: center;
+    color: white;
+}
+.device_on label{
+	position: relative;
+    display: block;
+    text-align: center;
+    color: white;
+}
+.device_on .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+}
+ .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+    margin: 87px;
+}
+.device_off:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.90;
+}
+.device_on:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.90;
+}
