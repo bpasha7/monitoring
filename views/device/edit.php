@@ -1,6 +1,7 @@
 <script>
     $(document).ready(function(){
             var URL = 'http://monitoring.dev/';
+            var oids;
             $(document).keypress(function(e) {
                     if(e.which == 13) {
                         $(".search").click();
@@ -21,8 +22,33 @@
                         });
                     return false;
                 });
+            $("#edit_device").on('focus', '.oidsname', function(){
+            	var grp = $("#target").attr('grp');
+            	var select_id = "#"+$(this).attr('id');
+            	$.ajax({
+                            url: URL+'device/oidsname',
+                            type: "POST",
+                            data: {
+                                grp: grp
+                            },
+                            success: function(html){
+                                var result = $.parseJSON(html);
+                            	oids = result[1];
+                                $(select_id).html(result[0]);
+                            }
+                        });
+            	});
+           	$("#edit_device").on('mouseleave', '.oidsname', function(){
+           		if(oids!==undefined){
+           	 	var oid_id = $(this).val();
+           	 	$(this).parent().children('#oid').val(oids[oid_id]);
+           	 	}
+           	 	});
             $("#edit_device").on('click', '#delete', function(){
+            	
             	var ip = $("#ip").val();
+            	if(!confirm("Устрйоство с IP-Адрессом '"+ip+"' Будет удалено. Продолжить?"))
+            		return;
             	$.ajax({
                             url: URL+'device/deleteDevice',
                             type: "POST",
@@ -45,10 +71,10 @@
             $("#edit_device").on('click', '#target', function(){
                     var properies = [];
                     for(var i=1; i <= $( "ol li" ).length; i++){
-                        var prop = $("#p"+i+" #pname").val();
-                        if(prop!==undefined || prop!==""){
+                        var prop = $("#s"+i).val();
+                        if(prop!==undefined && prop!==""){
                             properies[properies.length] = prop;
-                            properies[properies.length] = $("#p"+i+" #oid").val();
+                            //properies[properies.length] = $("#p"+i+" #oid").val();
                         }
                     }
                     if(properies.length>0)
@@ -93,10 +119,13 @@
                     //var n = $( "ol li" ).length+1;
                     var countProp = $( "ol li" ).length+1;
                     var id = "p"+countProp.toString();
+                   // countProp++;
+                   // var id = "p"+countProp.toString();
+                    $("ol").append('<li id="'+id+'"><select id="s'+countProp+'" class="oidsname"><option>Выберите свойтсво</option></select><label for=""> OID: </label><input id="oid" type="text" placeholder="Fill in OID" disabled/><img class="del" src="public/images/del.png" alt="'+id+'" /></li>');
                     /* $("#"+id).animate({
                     opasity: 1
                     }, 500, function() {*/
-                    $("ol").append('<li id="'+id+'"><input id="pname" type="text" placeholder="Name property"/><label for=""> OID: </label><input id="oid" type="text" placeholder="Fill in OID"/><img class="del" src="public/images/del.png" alt="'+id+'" /></li>');
+                   // $("ol").append('<li id="'+id+'"><input id="pname" type="text" placeholder="Name property"/><label for=""> OID: </label><input id="oid" type="text" placeholder="Fill in OID"/><img class="del" src="public/images/del.png" alt="'+id+'" /></li>');
                     $('#'+id).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 200);
                     /* $("ol").css('opacity: 1');
                     });*/
@@ -107,7 +136,7 @@
 <center>
     <h2>
         Edit device<br/>
-        <input id="ip" type="text" placeholder="Search by IP-addres" autofocus/><img class="search" src="public/images/search.png" alt="p1" />
+        <input id="ip" type="text" placeholder="Search by IP-addres" value="127.0.0.11" autofocus/><img class="search" src="public/images/search.png" alt="p1" />
     </h2>
 </center>
 <hr/>

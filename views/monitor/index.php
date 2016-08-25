@@ -4,29 +4,26 @@
             var deviceCount;
             var deviceDemanded = 0;
             var timerId;
+            $('#groups').focus(function(){
+            	$('#groups').css('background', 'white');
+                    $.ajax({
+                            url: URL+'device/groups',
+                            success: function(html){
+                                $('#groups').html(html);
+                            }
+                        });
+                });
             $.ajax({
                     url: URL+'device/count',
                     success: function(count){
                     	deviceCount= count;
+                    	$(".info").html("Всего утсройств: "+count);
                     }
                 });          
-                /*function test(){
-                	var limit = $("#limit").val();
-                	$('.map').fadeIn('200');
-                	for(var i = 1; i < deviceCount; i+=limit)
-                	$.ajax({
-                    url: URL+'monitor/refresh',
-                    type: "POST",
-                    data: {from: i, to: i+limit},
-                    success: function(html){
-                        $('.map').append(html);                        
-                    }
-                });
-					/*$('.map').append('<div class="device_refresh" ><img class="refresh" src="public/images/refresh.png" /><img class="printer" src="public/images/printer.png" /><label>test</label></div>');
-				};*/
 				function demand(){
 					//==
 					var limit = $("#limit").val();
+					var grp = $("#groups").val();
 					if(deviceDemanded >= deviceCount)
 						{
 							deviceDemanded = 0;
@@ -39,7 +36,7 @@
                     url: URL+'monitor/refresh',
                     type: "POST",
                     async: false,
-                    data: {from: deviceDemanded-limit, cnt: limit},
+                    data: {from: deviceDemanded-limit, cnt: limit, grp: grp},
                     context: this              
                		}).success(function(html){      
                        $('.map').animate({
@@ -51,10 +48,15 @@
                       });   
 				};
             $("#up").click(function(){
-            	var delay = $("#delay").val()*1000;
+            	if($.isNumeric($("#delay").val()) && $.isNumeric($("#limit").val()) )
+            	{
+					var delay = $("#delay").val()*1000;
             	timerId = setInterval(function() {
   					demand();
 				}, delay);
+				}
+				else
+					alert("Needed fields are empty or not numeric!");        	
             });		
             $(".map").on('click','img.refresh', function(){
                     var device_id = $(this).attr('deviceid');
@@ -82,16 +84,27 @@
 </script>
 <link rel="stylesheet" href="<?php echo URL; ?>public/css/monitor.css">
 <div class="settings">
-	<select id="groups" name="">
+<!--	<select id="groups" name="">
         <option>
             Filter
         </option>
-    </select> <input id="up" type="submit" value="Refresh"/>
-    <input id="limit" type="text" placeholder="Devices limit(num)" value=""/>
-    <input id="delay" type="text" placeholder="Delay (sec)" value=""/>
-    <input id="timer" type="text" placeholder="Refreshing (sec)" value=""/>
+    </select>--> <input id="up" type="submit" value="Обновить"/>
+    <input id="limit" type="text" placeholder="Число устрйоств" value=""/>
+    <input id="delay" type="text" placeholder="Задержка(сек)" value=""/>
+    <input id="timer" type="text" placeholder="Обновление (сек)" value=""/>
+    <select id="groups" name="">
+        <option value="-1">
+            Фильтр
+        </option>
+    </select>
+    <select id="status" name="">
+        <option>
+            Статус
+        </option>
+    </select>
+    <label class="info"></label>
 </div>
 
 
 	<div class="map">
-</div>
+	</div>

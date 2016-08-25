@@ -5,38 +5,30 @@
         Monitoring devices
     </title>
     <link rel="stylesheet" href="<?php echo URL; ?>public/css/menu.css">
+    <link rel="stylesheet" href="<?php echo URL; ?>public/css/footer.css">
     <script type="text/javascript" src="<?php echo URL; ?>public/scripts/jquery-2.2.4.js">
     </script>
-    <script type="text/javascript" src="<?php echo URL; ?>public/scripts/jquery.form.js">
-    </script>
-    <script type="text/javascript" src="<?php echo URL; ?>public/scripts/jquery-ui.js">
-    </script>
-   <!--  <script src="<?php echo URL; ?>public/scripts/general.js">
-    </script>
-    <script src="<?php echo URL; ?>public/scripts/dashboard.js">
-    </script>
-       <script src="<?php echo URL; ?>views/dashboard/scripts/default.js"></script>-->
-    <!--<?php
-    /* if(isset($this->js)) {
-    foreach($this->js as $js) {
-    echo '<script src="'.URL.'views/'.$js.'"></script>';
-    }
-    }*/
-    ?>-->
     <base href="http://monitoring.dev/">
 </head>
 <body>
 <div id="menu">
 <ul >
-  <li ><a href="monitor/on">Moninor</a></li>
-  <li ><a href="Plans">Plans</a></li>
-  <li ><a href="">Devices</a>
+  <li ><a href="monitor/on">Монитор</a></li>
+  <li ><a href="Plans">Plans(&alpha;)</a></li>
+  <li ><a href="device/all">Устройства</a>
   				<ul>
-					<li><a href="device/create">New</a></li>
-					<li><a href="device/edit">Edit</a></li>
+					<li><a href="device/create">Добавить</a></li>
+					<li><a href="device/edit">Изменить</a></li>
+					<li><a href="device/settings">Настройки(&alpha;)</a></li>
 				</ul>
   </li>
-  <li><a href="#about">About</a></li>
+   <li ><a href="oid/show">База Oids</a>
+  				<ul> 					
+					<li><a href="oid/create">Добавить</a></li>
+<!--					<li><a href="oid/edit">Изменить</a></li>-->
+				</ul>
+  </li>
+  <li><a href="#about">About(&alpha;)</a></li>
 </ul>
 </div>
 

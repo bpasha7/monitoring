@@ -8,6 +8,14 @@ class Device extends Controller
         //$this->view->msg = 'Страницы не существует != (';
         //$this->view->render('error / index');
     }
+    public function settings()
+    {
+        $this->view->render('device/settings');
+    }
+    public function all()
+    {
+        $this->view->render('device/all');
+    }
     public function index()
     {
         $this->view->msg = 'Страницы не существует999!';
@@ -15,7 +23,6 @@ class Device extends Controller
     }
     public function create()
     {
-        //$this->view->msg = 'Страницы не существует!';
         $this->view->render('device/new');
     }
     public function edit()
@@ -25,6 +32,13 @@ class Device extends Controller
     public function addDevice()
 	{
 		$this->model->addDevice();
+	}
+	public function oidsname()
+	{
+		if(empty($_POST['grp']))
+			exit();
+		else
+			$this->model->oidsname();
 	}
 	public function count()
 	{

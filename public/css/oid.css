@@ -1,0 +1,14 @@
+ #maket {
+    display: inline-flex;
+   }
+   TD {
+   /*  vertical-align: top; Вертикальное выравнивание в ячейках */
+    /*padding: 5px; /* Поля вокруг ячеек */
+   }
+   TD#leftcol {
+    width: 200px; /* Ширина левой колонки */
+    /*background: #ccc; /* Цвет фона левой колонки */
+   }
+   TD#rightcol {
+    background: #fc3; /* Цвет фона правой колонки */
+   }

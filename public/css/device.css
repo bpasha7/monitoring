@@ -3,30 +3,34 @@ body{
 	
 }
 #target{
+	    min-height: 25px;
 	background-color: #f44336;
     color: white;
     width: 10%;
     font-size: 14pt;
 }
-select{
-    margin: inherit;
-    font-size: 11pt;
+select
+{
     width: 200px;
-    height: 21px;
-    border: 1px solid #ccc!important;
+    height: 28px;
+    border: 1px solid #BDBDBD;
+    font-size: 16px;
+    color: grey;
+    border-radius: 5px;
 }
-table{
+.main_prop table{
 }
-td:first-child{
+.main_prop td:first-child{
 	width: 90px;
 }
-td:last-child{
+.main_prop td:last-child{
 	width: 90px;
 }
-td, th {
+.main_prop td, th {
     display: inline-block;
 }
 input{
+	min-height: 25px;
 	border: 1px solid #ccc!important;
 	height: 4%;
 	font-size: 12pt;
@@ -35,11 +39,31 @@ input{
 	text-align: center;
 	margin: 0.3%;
 }
+.long{
+	width: 30%;
+}
+.long:focus{
+	width: 60%;
+}
+.lond:not(:focus){
+	width: 60px;	
+}
+/*input[type=text].long:focus{
+	text-align: center;
+	transition: width 0.8s ease-in-out;
+
+	width: 30%; 
+}
+input[type=text]:not(:focus){
+	transition: width 0.8s ease-in-out;
+    width: 60px;
+}*/
 #pname{
 	width: 20%; 
 	text-align: left;
 }
 #oid{
+	
 	width: 40%;
 	text-align: left; 
 }
@@ -49,7 +73,7 @@ input{
 	width: 30%; 
 	
 }
-#oid:focus{
+#oid:hover{
 	text-align: center;
 	transition: width 0.4s ease-in-out;
 	width: 50%; 
@@ -66,6 +90,37 @@ input{
 	vertical-align: middle;
 	cursor: pointer;
 	
+}
+.tip{
+	display: inline;
+}
+#help{
+	
+	vertical-align: middle;
+	cursor: help;
+	width: 25px;
+}
+.tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+    margin-top: 34px;
+}
+.tip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.90;
+}
+#eye{
+	vertical-align: middle;
+	cursor: pointer;
+	width: 40px;
 }
 #edit_device img{
 	vertical-align: middle;
@@ -85,3 +140,24 @@ input{
 	transition: 0.4s ease-in-out;
 	transform: scale(1);
 }
+fieldset{
+	border-color: chartreuse;
+    background-color: aliceblue;
+}
+.oids table {
+    background-color: #aaa;
+}
+.oids tbody {
+    background-color: #ddd;
+    height: 100px;
+    overflow: auto;
+    width:200px;
+}
+.oids td {
+    padding: 3px 15px;
+    width:60px;
+    border: 1px solid black;
+}
+
+.oids thead > tr, tbody{
+    display:block;}

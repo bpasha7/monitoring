@@ -1,9 +1,43 @@
 <script>
-
     $(document).ready(function(){
             var URL = 'http://monitoring.dev/';
             var countProp=1;
+            var oids;
+            $(function() {
+    		$('#groups').focus();
+    		});
+            $("#create_device").on('focus', 'li .oidsname', function(){
+            	var grp = $('#groups').val();
+            	if(!$.isNumeric(grp))
+            	{
+					alert('Не выбран тип устрйоства');
+					$('#groups').css('background', 'pink');
+					return false;
+				}
+            		
+            	var select_id = "#"+$(this).attr('id');
+            	$.ajax({
+                            url: URL+'device/oidsname',
+                            type: "POST",
+                            data: {
+                                grp: grp
+                            },
+                            success: function(html){
+                            	var result = $.parseJSON(html);
+                            	oids = result[1];
+                                $(select_id).html(result[0]);
+                            }
+                        });
+            	});
+           	 $("#create_device").on('mouseleave', '.oidsname', function(){
+           		if(oids!==undefined){
+           	 	var oid_id = $(this).val();
+           	 	$(this).parent().children('#oid').val(oids[oid_id]);
+           	 	}
+           	 	});
+           	 	
             $('#groups').focus(function(){
+            	$('#groups').css('background', 'white');
                     $.ajax({
                             url: URL+'device/groups',
                             success: function(html){
@@ -14,10 +48,10 @@
             $("#target").click(function(){
                     var properies = [];
                     for(var i=1; i <= countProp; i++){
-                        var prop = $("#p"+i+" #pname").val();
-                        if(prop!==undefined || prop!==""){
+                        var prop = $("#s"+i).val();
+                        if(prop!==undefined && prop!==""){
                             properies[properies.length] = prop;
-                            properies[properies.length] = $("#p"+i+" #oid").val();
+                            //properies[properies.length] = $("#p"+i+" #oid").val();
                         }
                     }
                     if(properies.length>0)
@@ -43,10 +77,10 @@
                                 }
                             });
                         else
-                        	alert('IP-Addres and/or Device type are/is missed!');
+                        	alert('IP-Адресс или свойства не заполнены!');
                     }
                     else{
-                        alert('Not enough properties!');
+                        alert('Не достаточно свойств!');
                     }
                     return false;
                 });
@@ -66,35 +100,30 @@
                     //var n = $( "ol li" ).length+1;
                     countProp++;
                     var id = "p"+countProp.toString();
-                   /* $("#"+id).animate({
-                       opasity: 1
-                    }, 500, function() {*/
-                    $("ol").append('<li id="'+id+'"><input id="pname" type="text" placeholder="Name property"/><label for=""> OID: </label><input id="oid" type="text" placeholder="Fill in OID"/><img class="del" src="public/images/del.png" alt="'+id+'" /></li>');
+                    $("ol").append('<li id="'+id+'"><select id="s'+countProp+'" class="oidsname"><option>Выберите свойтсво</option></select><label for=""> OID: </label><input id="oid" type="text" placeholder="Fill in OID" disabled/><img class="del" src="public/images/del.png" alt="'+id+'" /></li>');
                     $('#'+id).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 200);
-                   /* $("ol").css('opacity: 1');
-                    });*/
                 });
         });
 </script>
 <link rel="stylesheet" href="<?php echo URL; ?>public/css/device.css">
 <center>
     <h2>
-        Add new device
+       	Добавление нового устройства
     </h2>
 </center>
 <hr/>
 <fieldset id="create_device">
-<table>
+<table class="main_prop">
 	<tr>
 		<td><label for="">
         <b>
-            IP Device
+            IP-адресс
         </b>
     </label></td>
-		<td> <input id="ip" type="text" placeholder="Enter IP-Adress" /></td>
+		<td> <input id="ip" type="text" placeholder="Введите IP-адресс" /></td>
 		<td><select id="groups" name="">
         <option>
-            Please choose type...
+            Выберите устройство
         </option>
     </select></td>
 	</tr>
@@ -112,19 +141,22 @@
             Timeout  
         </b>
     </label></td>
-		<td><input id="timeout" type="text" placeholder="Timeout(ms)" value="100"/></td>
+		<td><input id="timeout" type="text" placeholder="Timeout(ms)" value="10"/></td>
 		<td></td>
 	</tr>
 </table>
     <h2>
-        Properties <img id="add" src="public/images/add.png" alt="" />
+        Свойства <img id="add" src="public/images/add.png" alt="" />
     </h2>
     <ol>
         <li id="p1">
-            <input id="pname" type="text" placeholder="Name property" />
+        <select id="s1" class="oidsname">
+        	<option>Выберите свойтсво</option>
+        </select>
+            <!--<input id="pname" type="text" placeholder="Name property" />-->
             <label for="">
                 OID:
-            </label><input id="oid" type="text" placeholder="Fill in OID"/><img class="del" src="public/images/del.png" alt="p1" />
+            </label><input id="oid" type="text" placeholder="Fill in OID" disabled/><img class="del" src="public/images/del.png" alt="p1" />
         </li>
 
     </ol>

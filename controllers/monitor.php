@@ -30,8 +30,20 @@ class Monitor extends Controller
     }
     public function create()
     {
-        //$this->view->msg = 'Страницы не существует!';
-        $this->view->render('monitor/index');
+$to      = 'bpasha@mail.ru';
+$subject = 'the subject';
+$message = 'Ready';
+$headers = 'From: test <s.ql@bk.ru>' . "\r\n" .
+    'Reply-To: webmaster@example.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+echo mail($to, $subject, $message, $headers);
     }
+    public function test()
+    {
+		$ma ="2+10";
+$p = eval('return '.$ma.';');
+print $p;
+	}
 }
 ?>

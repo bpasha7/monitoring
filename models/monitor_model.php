@@ -7,7 +7,7 @@ class Monitor_Model extends Model
     }
     public function update()
     {
-		$sth = $this->database->prepare("SELECT * FROM Devices WHERE DeviceId = ".$_POST['deviceid']);
+		$sth = $this->database->prepare("CALL GetDevice(".$_POST['deviceid'].")");
         $sth->execute();
         error_reporting(0);
         $row = $sth->fetch(PDO::FETCH_LAZY);
@@ -19,17 +19,23 @@ class Monitor_Model extends Model
         	{
 				$result= snmpget($row['DeviceIP'], $row['Community'], $prop[$i+1], $row['Timeout']);
         		if($result)
-        			$prop[$i+1] = $result;
+        		{
+                    $prop[$i + 1] = $result;
+                    
+        		}
         		else
         		{
 					$state = false;	
 					break;
 				}			
 			}
-		$div.= '<span class="tooltiptext">';
-		for ($i= 0; $i < count($prop); $i+=2)
-			$div.=  $prop[$i].': '.substr($prop[$i+1], strpos($prop[$i+1],":")+1, strlen($prop[$i+1])).'<br/>';
-		$div.=  '</span>';
+			if($state){
+				$div .= '<span class="tooltiptext">';
+                    for ($i = 0; $i < count($prop); $i += 2)
+                    $div .= $prop[$i].': '.substr($prop[$i + 1], strpos($prop[$i + 1],":") + 1, strlen($prop[$i + 1])).'<br/>';
+                    $div .= '</span>';
+			}
+		
 			switch($row['GroupId'])
 			{
 				case 1:
@@ -52,9 +58,13 @@ class Monitor_Model extends Model
 			echo json_encode(array($div, $state));		
 			//$div+=  '</div>';
 	}
+ 	/*public function refresh()
+ 	{
+		
+	}*/
     public function refresh()
     {
-		$sth = $this->database->prepare("SELECT * FROM Devices LIMIT ".$_POST['from'].", ".$_POST['cnt']);
+		$sth = $this->database->prepare("CALL GetDevices(".$_POST['from'].", ".$_POST['cnt'].", ".$_POST['grp'].")");
         $sth->execute();
         error_reporting(0);
         while ($row = $sth->fetch(PDO::FETCH_LAZY))

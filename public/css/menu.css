@@ -37,6 +37,9 @@ body{
     float: none;
     text-align: left;
     background: #7F7F7F;
+        border-left: #7f706a;
+    border-left-style: inset;
+    border-left-width: 2px;
 }
 #menu li:hover ul{
     display: block;
